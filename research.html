@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>DHLab | Research</title>
+    <style>
+        /* ================= 基礎設定 ================= */
+        :root { 
+            --bg-color: #F5F4F0; 
+            --primary-color: #2C4C3B; 
+            --secondary-color: #3A634D;
+            --text-color: #333333; 
+            --link-blue: #0066cc;
+        }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+        
+        /* ================= 導覽列 ================= */
+        header { background-color: var(--primary-color); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 2.2rem; font-weight: 900; font-style: italic; color: #FFFFFF; text-decoration: none; }
+        nav { display: flex; gap: 20px; }
+        nav a { color: #FFFFFF; text-decoration: none; font-weight: 500; font-size: 0.95rem; padding-bottom: 5px; transition: 0.3s;}
+        nav a:hover { border-bottom: 2px solid #FFFFFF; }
+        
+        /* ================= 共通排版 ================= */
+        .container { max-width: 1050px; margin: 50px auto; padding: 0 20px; }
+        h2.section-title { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--primary-color); padding-bottom: 15px; margin-bottom: 50px; font-size: 2.2rem; }
+
+        /* ================= 研究卡片 ================= */
+        .research-card { 
+            background: #fff; border-radius: 12px; margin-bottom: 40px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; transition: box-shadow 0.3s;
+        }
+        .research-card:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+
+        .card-summary { display: flex; padding: 40px; gap: 40px; align-items: center; }
+        
+        /* 👑 修改這裡：讓主圖框變寬，並且絕對不裁切 (contain) */
+        .research-img-wrapper { 
+            flex: 0 0 380px; /* 變寬以容納長方形 GIF */
+            height: 250px; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            background: #fff; /* 白底，避免透明邊緣 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .research-img-wrapper img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; /* 改成 contain，圖形完整顯示不裁切 */
+        }
+        
+        .research-content { flex: 1; }
+        .research-content h3 { color: var(--primary-color); margin-top: 0; margin-bottom: 15px; font-size: 1.6rem; border-left: 5px solid var(--primary-color); padding-left: 15px; line-height: 1.3;}
+        .research-content p { font-size: 1.05rem; color: #555; margin-bottom: 20px; text-align: justify; }
+        
+        .read-more-btn { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 8px 20px; font-size: 1rem; font-weight: bold; border-radius: 30px; cursor: pointer; transition: 0.3s; }
+        .read-more-btn:hover { background-color: var(--primary-color); color: #fff; }
+
+        /* ================= 隱藏展開區 ================= */
+        .card-details {
+            max-height: 0; overflow: hidden; transition: max-height 0.8s ease-in-out, padding 0.8s ease;
+            background-color: #fafafa; border-top: 1px solid #eee; padding: 0 40px; 
+        }
+        .research-card.expanded .card-details { max-height: 8000px; padding: 40px; }
+
+        .details-text { font-size: 1.05rem; line-height: 1.8; color: #333; margin-bottom: 30px; text-align: justify; }
+        .details-text a { color: var(--link-blue); font-weight: bold; text-decoration: none; }
+        .details-text a:hover { text-decoration: underline; }
+
+        .relevant-pubs { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 40px; }
+        .relevant-pubs h4 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 1.1rem; }
+        .relevant-pubs ul { margin: 0; padding-left: 20px; font-size: 0.95rem; color: #555; }
+        .relevant-pubs li { margin-bottom: 5px; }
+
+        /* ================= 多圖網格 彈性大小版 ================= */
+        .details-gallery { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            align-items: center; /* 確保圖片不被不當拉伸壓縮 */
+            gap: 30px; 
+        }
+
+        .gallery-item { 
+            width: 100%; 
+            max-width: 900px; /* 預設大圖尺寸 */
+            height: auto; 
+            background: #fff; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            padding: 15px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            cursor: zoom-in;
+            transition: transform 0.3s, border-color 0.3s; 
+        }
+
+        .gallery-item:hover { 
+            transform: scale(1.02); 
+            border-color: var(--primary-color); 
+        }
+
+        /* 👑 精準尺寸控制器 */
+        .gallery-item.size-sm {
+            max-width: 420px; /* 小尺寸：兩個可並排 */
+        }
+        .gallery-item.size-md {
+            max-width: 750px; /* 中等尺寸：圖表清晰，又不會太大 */
+        }
+
+        /* ================= 燈箱效果 (Lightbox Modal) ================= */
+        #lightbox {
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center; cursor: zoom-out;
+        }
+        #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid #fff; border-radius: 5px; box-shadow: 0 0 30px rgba(0,0,0,0.5); object-fit: contain; }
+        .close-lightbox { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 50px; cursor: pointer; }
+
+        footer { background-color: #E2E8F0; padding: 40px 20px; margin-top: 50px; text-align: center; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">DHLab</a>
+        <nav>
+            <a href="index.html">HOME</a> 
+            <a href="member.html">MEMBER</a> 
+            <a href="publications.html">PUBLICATIONS</a>
+            <a href="research.html" style="border-bottom: 2px solid #FFFFFF;">RESEARCH</a> 
+            <a href="awards.html">AWARDS</a> 
+            <a href="activity.html">ACTIVITY</a>
+        </nav>
+    </header>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged view">
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Research Interests</h2>
+
+        <div class="research-card">
+            <div class="card-summary">
+                <div class="research-img-wrapper">
+                    <img src="images/research/r1_main.jpg" alt="Materials Performance">
+                </div>
+                <div class="research-content">
+                    <h3>Materials Performance:<br>Brightening Materials</h3>
+                    <p>The PL QY of 2D monolayer semiconductors reaches near-unity when they are made intrinsic through chemical treatment or electrostatic doping. Neutral exciton recombination is entirely radiative even in the presence of a high native defect density. This finding enables monolayers optoelectronic applications as the stringent requirement of low defect density is eased.</p>
+                    <button class="read-more-btn" onclick="toggleDetails(this)">Read More ➜</button>
+                </div>
+            </div>
+            
+            <div class="card-details">
+                <div class="details-text">
+                    <p>Photoluminescence quantum yield (PL QY), defined as the number of emitted photons per photogenerated electron-hole pair, is the key metric for the performance of modern optoelectronic devices as it directly dictates the maximum efficiency achievable in light-emitting diodes, lasers, and solar cells. Calibrated measurement of PL QY of these 2D semiconductors was performed as a first step in evaluating their true potential as optoelectronic materials.</p>
+                    <p>As an excitonic direct bandgap semiconductor in the monolayer limit, transition metal dichalcogenides show great promise for optoelectronic applications. However, as-exfoliated monolayer semiconductors, such as MoS<sub>2</sub> and WS<sub>2</sub>, show poor PL QY (~1%). I have developed several brightening strategies. For example, the PL QY of MoS<sub>2</sub> monolayers increases from ~1% to over 95% by chemically treating with an organic superacid: bis(trifluoromethane) sulfonimide (TFSI) (Science, 2015). The processing stability and treatment yield of TFSI treatment can be further improved by fluoropolymers (ACS Nano, 2017). Near-unity PL QY in chemically-untreated monolayers can also be achieved at room temperature by electrostatic doping (Science, 2015). This work shows that the underlying mechanism of TFSI treatment is electron counter-doping, which effectively acts as a Lewis acid.</p>
+                </div>
+
+                <div class="relevant-pubs">
+                    <h4>Relevant Publications:</h4>
+                    <ul>
+                        <li>Science, 364, 468–471, 2019.</li>
+                        <li>Science, 350, 1065, 2015.</li>
+                        <li>ACS Nano, 11, 5179-5185, 2017.</li>
+                        <li>Nano Letters, 15, 1356, 2015.</li>
+                        <li>Science Advances, 5, eaau4728, 2019.</li>
+                        <li>Nature Communications, 8, 608, 2017.</li>
+                        <li>Nano Letters, 17, 5356–5360, 2017.</li>
+                        <li>ACS Nano, 10, 6535–6541, 2016.</li>
+                        <li>Nano Letters, 16, 2786–2791, 2016.</li>
+                    </ul>
+                </div>
+
+                <div class="details-gallery">
+                    <img src="images/research/r1_detail1.gif" alt="Research Details" class="gallery-item" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <div class="research-card">
+            <div class="card-summary">
+                <div class="research-img-wrapper">
+                    <img src="images/research/r2_main.gif" alt="Exciton Physics">
+                </div>
+                <div class="research-content">
+                    <h3>Exciton Physics:<br>Photophysics of Excitons</h3>
+                    <p>Multiparticle Coulomb interactions are pronounced in monolayer semiconductors, leading to a multitude of recombination pathways, each associated with the different quasiparticles produced by these interactions. A simple kinetic model that involves excitons, trions, biexcitons, and free carriers is introduced to explain the recombination process.</p>
+                    <button class="read-more-btn" onclick="toggleDetails(this)">Read More ➜</button>
+                </div>
+            </div>
+            <div class="card-details">
+                <div class="details-text">
+                    <p>Once semiconductors are thinned down to the atomic level, strong many-body interactions cause new physics to emerge that deviates from well-known free carrier models. A prominent effect is that carriers turn from “free” to “bound” species even at room temperature, so-called room temperature excitons. Using monolayer semiconductors as the platform (i.e., semiconductors at their ultimate thickness limits), I have shown that such thickness-determined excitonic systems are promising for optoelectronic applications due to their near-unity photoluminescence (PL) quantum yields (QYs), a key figure of merit dictating the maximum efficiency achievable in light-emitting diodes, lasers and solar cells.</p>
+                    <p>The PL QY of these materials strongly depends on background charge concentration, and near-unity PL QY in chemically-untreated monolayers can be achieved at room temperature by only electrostatic doping (Science, 2019). The QY is highest when the monolayers are electrically intrinsic. This is surprising, as it indicates that all neutral excitons recombine radiatively even in the presence of native defects. My research reveals that room temperature excitons are robust and bright regardless of monolayer quality, indicating the potential of achieving highly efficient excitonic devices.</p>
+                    <p>The study also shows that PL QY changes as a function of the excitation laser pump power. At the high pump, excitons recombine with each other without emitting light in a process called biexciton recombination. As bright light-emitting devices operate in the high pump regime, this biexciton recombination process will be the limiting factor in practical optoelectronic devices. To describe the photophysics, a simple kinetic model that involves excitons, trions, biexcitons, and free carriers is developed to explain the recombination process in both sulfur- and selenide- based TMDCs. Python code is available <a href="https://colab.research.google.com/github/dhlien/code/blob/master/Quasiparticle%20-%20code.ipynb" target="_blank">here</a>.</p>
+                </div>
+
+                <div class="relevant-pubs">
+                    <h4>Relevant Publications:</h4>
+                    <ul>
+                        <li>Science, 364, 468–471, 2019.</li>
+                        <li>Science, 350, 1065, 2015.</li>
+                    </ul>
+                </div>
+
+                <div class="details-gallery">
+                    <img src="images/research/r2_detail1.png" alt="Research Details" class="gallery-item size-sm" onclick="openLightbox(this.src)">
+                    <img src="images/research/r2_detail2.gif" alt="Research Details" class="gallery-item" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+        <div class="research-card">
+            <div class="card-summary">
+                <div class="research-img-wrapper">
+                    <img src="images/research/r3_main.gif" alt="Device Innovation">
+                </div>
+                <div class="research-content">
+                    <h3>Device Innovation:<br>Transient-Electroluminescence Devices</h3>
+                    <p>To deal with the injection inefficiency caused by Schottky contacts, I developed an AC carrier injection architecture, a device concept that is capable of efficiently injecting carriers in various excitonic systems, including monolayer semiconductors, with demonstrations of bright light-emitting devices from infrared to ultraviolet regimes.</p>
+                    <button class="read-more-btn" onclick="toggleDetails(this)">Read More ➜</button>
+                </div>
+            </div>
+            <div class="card-details">
+                <div class="details-text">
+                    <p>To deal with the injection inefficiency caused by Schottky contacts, I developed an AC carrier injection architecture, a device concept that is capable of efficiently injecting carriers in various excitonic systems, including monolayer semiconductors (Nat. Comm. 2018), with demonstrations of bright light-emitting devices from infrared to ultraviolet regimes. Ohmic contacts to both carrier types are typically a requirement for high-performance light-emitting diodes but are challenging to achieve in practice. This fundamental challenge can be resolved by leveraging transient-mode device operation.</p>
+                    <p>Using monolayers as an example in this dopant-less device (monolayer semiconductors have significant Schottky barriers at metal-semiconductor junctions), an AC voltage is applied to a gate electrode to generate alternating electron and hole populations in the thin semiconductor film. During the ac transients, steep band bending is created at the metal-semiconductor junction, which leads to large tunneling currents that surmount the Schottky barrier height. As a result, bright EL is achieved at high injection levels.</p>
+                    <p>Using this device concept, I demonstrate for the first time a two-terminal monolayer-thick light-emitting device with millimeter dimensions. We achieve a 7-segment display and a 2 mm × 3 mm device which is transparent in the off-state and bright in ambient room lighting. This work represents a fundamental breakthrough in the development of optoelectronic devices with important scientific and practical implications. This transient-EL concept can be extended to large bandgap materials in the future, for which achieving ohmic contacts to both carrier types is particularly challenging.</p>
+                </div>
+
+                <div class="relevant-pubs">
+                    <h4>Relevant Publications:</h4>
+                    <ul>
+                        <li>Nature Communications, 9, 1129, 2018.</li>
+                        <li>Nature Electronics, 2020.</li>
+                        <li>Proceedings of the National Academy of Sciences (PNAS) 117 (2), 902-906, 2020.</li>
+                        <li>Advanced Functional Materials, 30 (6), 1907941, 2020.</li>
+                    </ul>
+                </div>
+
+                <div class="details-gallery">
+                    <img src="images/research/r3_detail1.jpg" alt="Research Details" class="gallery-item size-sm" onclick="openLightbox(this.src)">
+                    <img src="images/research/r3_detail3.gif" alt="Research Details" class="gallery-item size-md" onclick="openLightbox(this.src)">
+                    <img src="images/research/r3_detail2.jpg" alt="Research Details" class="gallery-item size-md" onclick="openLightbox(this.src)">
+                    <img src="images/research/r3_detail4.gif" alt="Research Details" class="gallery-item size-md" onclick="openLightbox(this.src)">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 DHLab. National Yang Ming Chiao Tung University.</p>
+    </footer>
+
+    <script>
+        function toggleDetails(button) {
+            const card = button.closest('.research-card');
+            card.classList.toggle('expanded');
+            
+            if (card.classList.contains('expanded')) {
+                button.innerHTML = 'Show Less ✖';
+                button.style.backgroundColor = 'var(--primary-color)';
+                button.style.color = '#fff';
+            } else {
+                button.innerHTML = 'Read More ➜';
+                button.style.backgroundColor = 'transparent';
+                button.style.color = 'var(--primary-color)';
+            }
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+    </script>
+</body>
+</html>

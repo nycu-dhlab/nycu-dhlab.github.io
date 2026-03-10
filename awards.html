@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>DHLab | Awards</title>
+    <style>
+        /* ================= 基礎設定 ================= */
+        :root { 
+            --bg-color: #F5F4F0; 
+            --primary-color: #2C4C3B; 
+            --secondary-color: #3A634D;
+            --accent-gold: #B87500;
+            --text-color: #333333; 
+        }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
+        
+        /* ================= 導覽列 ================= */
+        header { background-color: var(--primary-color); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .logo { font-size: 2.2rem; font-weight: 900; font-style: italic; color: #FFFFFF; text-decoration: none; }
+        nav { display: flex; gap: 20px; }
+        nav a { color: #FFFFFF; text-decoration: none; font-weight: 500; font-size: 0.95rem; padding-bottom: 5px; transition: 0.3s;}
+        nav a:hover { border-bottom: 2px solid #FFFFFF; }
+        
+        /* ================= 共通排版 ================= */
+        .container { max-width: 900px; margin: 50px auto; padding: 0 20px; }
+        h2.section-title { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--primary-color); padding-bottom: 15px; margin-bottom: 50px; font-size: 2.2rem; }
+
+        /* ================= 重大榮譽 (頂部卡片) ================= */
+        .highlight-awards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 60px; }
+        .highlight-card { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: #fff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 6px 15px rgba(44, 76, 59, 0.2); transition: transform 0.3s; }
+        .highlight-card:hover { transform: translateY(-5px); }
+        .highlight-card h3 { margin: 0 0 10px 0; font-size: 1.5rem; color: #F5F4F0; }
+        .highlight-card p { margin: 0; font-size: 1rem; color: #D1E0D7; margin-bottom: 15px; }
+        .highlight-icon { font-size: 2.5rem; margin-bottom: 10px; color: #FFE4B5; }
+
+        /* ================= 時間軸設計 ================= */
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; top: 0; left: 5px; height: 100%; width: 4px; background: #d5e0d9; border-radius: 2px; }
+
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-item::before { content: ''; position: absolute; top: 5px; left: -33px; width: 16px; height: 16px; background: var(--primary-color); border: 3px solid var(--bg-color); border-radius: 50%; box-shadow: 0 0 0 3px #d5e0d9; z-index: 1; }
+
+        .timeline-year { font-size: 1.6rem; font-weight: 900; color: var(--accent-gold); margin-bottom: 15px; display: inline-block; border-bottom: 2px solid var(--accent-gold); padding-bottom: 2px; }
+
+        .timeline-content { background: #fff; padding: 25px 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border-left: 4px solid var(--primary-color); transition: box-shadow 0.3s, transform 0.3s; }
+        .timeline-content:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.08); transform: translateX(5px); }
+
+        .award-title { font-weight: 700; font-size: 1.2rem; color: #111; margin-bottom: 8px; }
+        .award-desc { font-size: 0.95rem; color: #666; margin-bottom: 0; line-height: 1.5; }
+        
+        .award-group { margin-bottom: 20px; position: relative; }
+        .award-group:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .award-group:not(:last-child) { border-bottom: 1px dashed #eee; padding-bottom: 20px; }
+
+        .award-link { display: inline-block; margin-top: 10px; font-size: 0.9rem; color: #0066cc; text-decoration: none; font-weight: 600; margin-right: 15px;}
+        .award-link:hover { text-decoration: underline; color: #004499; }
+
+        /* ================= 抽屜式相簿 (Hidden Gallery) ================= */
+        .view-photo-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            color: #555;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .view-photo-btn:hover { background-color: #e2e2e2; }
+        
+        /* 展開狀態的按鈕樣式 */
+        .view-photo-btn.active { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+
+        /* 針對頂部深色卡片的按鈕特調 */
+        .highlight-card .view-photo-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        .highlight-card .view-photo-btn:hover { background-color: rgba(255, 255, 255, 0.3); }
+        .highlight-card .view-photo-btn.active { background-color: #fff; color: var(--primary-color); border-color: #fff; }
+
+        .award-gallery {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, margin-top 0.3s ease;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center; /* 讓不同高度的圖片能垂直置中對齊 */
+        }
+        .award-gallery.expanded { max-height: 500px; margin-top: 15px; }
+        
+        /* 讓頂部卡片的圖片置中對齊 */
+        .highlight-card .award-gallery { justify-content: center; }
+        
+        .gallery-img {
+            height: 120px; 
+            width: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: zoom-in;
+            border: 1px solid #eee;
+            transition: transform 0.2s;
+        }
+        .gallery-img:hover { transform: scale(1.03); border-color: var(--primary-color); }
+
+        /* 👑 新增：專門控制過大/直式圖片的類別 */
+        .gallery-img.sm-img {
+            height: 90px; /* 縮小高度，避免直式圖片在畫面上過於巨大 */
+        }
+
+        /* ================= 燈箱效果 (Lightbox) ================= */
+        #lightbox { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
+        #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid #fff; border-radius: 5px; box-shadow: 0 0 30px rgba(0,0,0,0.5); object-fit: contain; }
+        .close-lightbox { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 50px; cursor: pointer; }
+
+        footer { background-color: #E2E8F0; padding: 40px 20px; margin-top: 50px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">DHLab</a>
+        <nav>
+            <a href="index.html">HOME</a> 
+            <a href="member.html">MEMBER</a> 
+            <a href="publications.html">PUBLICATIONS</a>
+            <a href="research.html">RESEARCH</a> 
+            <a href="awards.html" style="border-bottom: 2px solid #FFFFFF;">AWARDS</a> 
+            <a href="activity.html">ACTIVITY</a>
+        </nav>
+    </header>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged Award Photo">
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Honors & Awards</h2>
+
+        <div class="highlight-awards">
+            <div class="highlight-card">
+                <div class="highlight-icon">✦</div>
+                <h3>Yushan Young Scholar 2020</h3>
+                <p>Supported by the Ministry of Education (MOE)</p>
+                
+                <button class="view-photo-btn" onclick="togglePhotos(this)">📸 View Photos (2)</button>
+                <div class="award-gallery">
+                    <img src="images/awards/yushan_1.png" class="gallery-img" onclick="openLightbox(this.src)" alt="Yushan Award">
+                    <img src="images/awards/yushan_2.jpg" class="gallery-img" onclick="openLightbox(this.src)" alt="Yushan Award">
+                </div>
+            </div>
+
+            <div class="highlight-card">
+                <div class="highlight-icon">🏆</div>
+                <h3>ASPEED Junior Chair Professor</h3>
+                <p>Supported by ASPEED TECHNOLOGY INC.</p>
+                
+                <button class="view-photo-btn" onclick="togglePhotos(this)">📸 View Photos (2)</button>
+                <div class="award-gallery">
+                    <img src="images/awards/aspeed_1.png" class="gallery-img" onclick="openLightbox(this.src)" alt="ASPEED Award">
+                    <img src="images/awards/aspeed_2.png" class="gallery-img" onclick="openLightbox(this.src)" alt="ASPEED Award">
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">NARLabs Honorable Mention</div>
+                        <div class="award-desc">Research and application of atomically thin oxide semiconductors</div>
+                        <button class="view-photo-btn" onclick="togglePhotos(this)">📸 View Photo</button>
+                        <div class="award-gallery">
+                            <img src="images/awards/narlabs_1.jpg" class="gallery-img" onclick="openLightbox(this.src)" alt="NARLabs Award">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2022</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">International Association of Advanced Materials (IAAM) Fellow</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2021</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">Outstanding Young Scholar</div>
+                        <div class="award-desc">The Electronics Device and Materials Association</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2016</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">First Prize of the Lam Research Award</div>
+                        <div class="award-desc">Lam Research Corporation, Fremont, CA, U.S.A<br>An award granted for cultivated excellent technology researcher</div>
+                    </div>
+                    <div class="award-group">
+                        <div class="award-title">Best Ph.D. Thesis Award of Taiwan Photonics Society</div>
+                        <div class="award-desc">Taiwan Photonics Society, Taiwan</div>
+                    </div>
+                    <div class="award-group">
+                        <div class="award-title">Graduate Student Research Award of Taiwan Physical Society</div>
+                        <div class="award-desc">Physical Society of Taiwan, Taiwan<br>An award for excellence of research</div>
+                    </div>
+                    <div class="award-group">
+                        <div class="award-title">Best Ph.D. Thesis Award of EE Department, NTU</div>
+                        <div class="award-desc">Department of Electronic Engineering, National Taiwan University</div>
+                    </div>
+                    <div class="award-group">
+                        <div class="award-title">Phi Tau Phi Award</div>
+                        <div class="award-desc">Phi Tau Phi Scholastic Honor Society, Taiwan<br>An award granted for outstanding performance in academia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2015</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">IEEE EDS PhD Fellowship</div>
+                        <div class="award-desc">IEEE Electron Devices Society<br>The winner of the award in 2015, receiving the award at IEDM</div>
+                        <a href="http://eds.ieee.org/phd-student-fellowship-program-awards.html" target="_blank" class="award-link">🔗 View Official Award Page</a>
+                        <button class="view-photo-btn" onclick="togglePhotos(this)">📸 View Photos (2)</button>
+                        <div class="award-gallery">
+                            <img src="images/awards/ieee_1.png" class="gallery-img" onclick="openLightbox(this.src)" alt="IEEE Award">
+                            <img src="images/awards/ieee_2.png" class="gallery-img" onclick="openLightbox(this.src)" alt="IEEE Award">
+                        </div>
+                    </div>
+                    <div class="award-group">
+                        <div class="award-title">Graduate Student Research Excellence Award</div>
+                        <div class="award-desc">National Taiwan University, Taiwan<br>An award granted for the paper published on <i>Science</i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2014</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">Gold Medalist Award (1st prize) in Green Tech Contest</div>
+                        <div class="award-desc">TECO TECHNOLOGY<br>Green Tech Contest is the biggest tech contest in Taiwan. Leader of the team. Title: Green tech-recyclable paper memory</div>
+                        <a href="http://www.tecofound.org.tw/greentech-contest/2014/main_works/11.jpg" target="_blank" class="award-link">🔗 View Certificate</a>
+                        <button class="view-photo-btn" onclick="togglePhotos(this)">📸 View Photos (2)</button>
+                        <div class="award-gallery">
+                            <img src="images/awards/gold_1.jpg" class="gallery-img sm-img" onclick="openLightbox(this.src)" alt="Green Tech Award">
+                            <img src="images/awards/gold_2.jpg" class="gallery-img" onclick="openLightbox(this.src)" alt="Green Tech Award">
+                        </div>
+                    </div>
+                    <div class="award-group">
+                        <div class="award-title">Graduate Student Research Excellence Award</div>
+                        <div class="award-desc">National Taiwan University, Taiwan<br>An award granted for the paper published on VLSI symposium technology</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2013</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">Dragon Gate Program Scholarship</div>
+                        <div class="award-desc">National Science Council, Taiwan<br>An international program financially supported by the National Science Council for the connection to the top labs in Berkeley</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2012</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">Visiting Scholarship</div>
+                        <div class="award-desc">Chinese Academy of Science, Beijing, China<br>Institute of Process Engineering</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2010</div>
+                <div class="timeline-content">
+                    <div class="award-group">
+                        <div class="award-title">Visiting Scholarship</div>
+                        <div class="award-desc">Georgia Institute of Technology, Georgia, United States<br>Department of Materials Science and Engineering</div>
+                    </div>
+                    <div class="award-group">
+                        <div class="award-title">Outstanding Poster Award</div>
+                        <div class="award-desc">Annual Meeting of the Physical Society of Republic of China, Taiwan</div>
+                    </div>
+                </div>
+            </div>
+
+        </div> </div>
+
+    <footer>
+        <p>© 2026 DHLab. National Yang Ming Chiao Tung University.</p>
+    </footer>
+
+    <script>
+        function togglePhotos(btn) {
+            const gallery = btn.nextElementSibling;
+            
+            gallery.classList.toggle('expanded');
+            btn.classList.toggle('active');
+            
+            if (gallery.classList.contains('expanded')) {
+                if (!btn.hasAttribute('data-original-text')) {
+                    btn.setAttribute('data-original-text', btn.innerHTML);
+                }
+                btn.innerHTML = '收起照片 ✖';
+            } else {
+                btn.innerHTML = btn.getAttribute('data-original-text');
+            }
+        }
+
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+    </script>
+</body>
+</html>
