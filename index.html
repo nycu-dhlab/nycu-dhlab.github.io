@@ -23,7 +23,7 @@
         nav a:hover, .nav-active { border-bottom: 2px solid #FFFFFF; }
 
         /* ================= 佈局容器 ================= */
-        .container { max-width: 1200px; margin: 60px auto 100px; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 50px auto 100px; padding: 0 20px; }
         
         /* ================= 極簡兩欄式排版 ================= */
         .two-col-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; }
@@ -37,7 +37,7 @@
         .pillar-link { color: var(--accent-gold); text-decoration: none; font-weight: bold; font-size: 1rem; }
         .pillar-link:hover { text-decoration: underline; }
 
-        /* ================= 輪播圖 (Carousel) ================= */
+        /* ================= 輪播圖 (Carousel) 特調 ================= */
         .carousel-wrapper { position: relative; width: 100%; border-radius: 12px; overflow: hidden; margin-bottom: 25px; background: #EAEAEA; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .carousel-track-container { width: 100%; height: 320px; position: relative; overflow: hidden; }
         .carousel-track { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
@@ -67,10 +67,10 @@
         @media (max-width: 900px) {
             .two-col-grid { grid-template-columns: 1fr; }
             .carousel-track-container { height: 250px; }
+            .container { margin-top: 30px; }
         }
 
         /* ================= Footer ================= */
-        /* 稍微縮小了 Padding 讓 Footer 更精巧 */
         footer { background-color: var(--primary-color); padding: 40px 20px 20px; text-align: center; color: #D1E0D7; font-size: 0.95rem; }
     </style>
 </head>
@@ -156,6 +156,10 @@
                 
                 <ul class="news-list">
                     <li class="news-item">
+                        <div class="news-date">February 2026</div>
+                        <div class="news-text">Prof. Lien honored with the <strong>2026 Simon M. Sze Junior Chair Professor</strong>.</div>
+                    </li>
+                    <li class="news-item">
                         <div class="news-date">August 2025</div>
                         <div class="news-text">Prof. Lien awarded the highly prestigious Yushan Young Scholar (2nd term).</div>
                     </li>
@@ -166,10 +170,6 @@
                     <li class="news-item">
                         <div class="news-date">January 2025</div>
                         <div class="news-text">New article featured on the cover of Nano Letters.</div>
-                    </li>
-                    <li class="news-item">
-                        <div class="news-date">July 2024</div>
-                        <div class="news-text">Honored with the NARLabs R&D Platform Excellence Award.</div>
                     </li>
                 </ul>
                 <a href="awards.html" class="pillar-link" style="margin-top: 20px; display: block;">View All Awards ➜</a>
