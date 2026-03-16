@@ -37,7 +37,7 @@
         .pillar-link { color: var(--accent-gold); text-decoration: none; font-weight: bold; font-size: 1rem; }
         .pillar-link:hover { text-decoration: underline; }
 
-        /* ================= 輪播圖 (Carousel) 特調 ================= */
+        /* ================= 輪播圖 (Carousel) ================= */
         .carousel-wrapper { position: relative; width: 100%; border-radius: 12px; overflow: hidden; margin-bottom: 25px; background: #EAEAEA; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .carousel-track-container { width: 100%; height: 320px; position: relative; overflow: hidden; }
         .carousel-track { display: flex; transition: transform 0.5s ease-in-out; height: 100%; }
@@ -55,19 +55,40 @@
         .dot { cursor: pointer; height: 8px; width: 8px; margin: 0 4px; background-color: rgba(255,255,255,0.4); border-radius: 50%; display: inline-block; transition: 0.3s; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         .dot.active, .dot:hover { background-color: #fff; transform: scale(1.2); }
 
-        /* ================= 最新消息清單特調 ================= */
+        /* ================= 緊湊版 滾動式最新消息清單 ================= */
+        .news-wrapper { 
+            height: 440px; 
+            overflow-y: auto; 
+            padding-right: 15px; 
+        }
+        
+        .news-wrapper::-webkit-scrollbar { width: 6px; }
+        .news-wrapper::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .news-wrapper::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        .news-wrapper::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
         .news-list { list-style: none; padding: 0; margin: 0; }
-        .news-item { border-bottom: 1px dashed #E0E0E0; padding: 20px 0; }
+        
+        .news-item { border-bottom: 1px dashed #E0E0E0; padding: 12px 0; }
         .news-item:first-child { padding-top: 5px; }
         .news-item:last-child { border-bottom: none; padding-bottom: 0;}
-        .news-date { color: var(--accent-gold); font-size: 0.9rem; font-weight: bold; margin-bottom: 8px; }
-        .news-text { font-size: 1rem; color: #333; line-height: 1.6; }
+        
+        .news-date { color: var(--accent-gold); font-size: 0.9rem; font-weight: bold; margin-bottom: 3px; }
+        .news-text { font-size: 1rem; color: #333; line-height: 1.5; }
+        
+        /* 學生名字專屬高光顏色 */
+        .name-highlight { color: #A93226; font-weight: bold; }
+
+        /* 期刊藍色連結特效 */
+        .journal-link { color: #0056b3; text-decoration: none; font-weight: bold; transition: color 0.2s; }
+        .journal-link:hover { color: #003d82; text-decoration: underline; }
 
         /* RWD 手機版適應 */
         @media (max-width: 900px) {
             .two-col-grid { grid-template-columns: 1fr; }
             .carousel-track-container { height: 250px; }
             .container { margin-top: 30px; }
+            .news-wrapper { height: 350px; }
         }
 
         /* ================= Footer ================= */
@@ -98,46 +119,16 @@
                     <button class="carousel-btn prev-btn">❮</button>
                     <div class="carousel-track-container">
                         <div class="carousel-track">
-                            <div class="carousel-slide">
-                                <img src="images/home/activity1.png" alt="Activity 1">
-                                <div class="slide-caption">DHLab at the 2025 Annual Physics Conference</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity2.png" alt="Activity 2">
-                                <div class="slide-caption">2025 實驗室尾牙聚餐</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity3.png" alt="Activity 3">
-                                <div class="slide-caption">2024 實驗室耶誕交換禮物</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity4.png" alt="Activity 4">
-                                <div class="slide-caption">2024 代表深耕中心參訪 NIMS (日本物質材料研究機構)</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity5.png" alt="Activity 5">
-                                <div class="slide-caption">DHLab Group Photo: 2024</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity6.png" alt="Activity 6">
-                                <div class="slide-caption">2024 實驗室尾牙聚餐</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity7.png" alt="Activity 7">
-                                <div class="slide-caption">2023 參訪 Georgia Institute of Technology</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity8.png" alt="Activity 8">
-                                <div class="slide-caption">2023 與朱教授實驗室籃球友誼賽</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity9.png" alt="Activity 9">
-                                <div class="slide-caption">2022 實驗室首屆碩士班畢業</div>
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="images/home/activity10.jpg" alt="Activity 10">
-                                <div class="slide-caption">DHLab Group Photo: 2022</div>
-                            </div>
+                            <div class="carousel-slide"><img src="images/home/activity1.png" alt="Activity 1"><div class="slide-caption">DHLab at the 2025 Annual Physics Conference</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity2.png" alt="Activity 2"><div class="slide-caption">2025 實驗室尾牙聚餐</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity3.png" alt="Activity 3"><div class="slide-caption">2024 實驗室耶誕交換禮物</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity4.png" alt="Activity 4"><div class="slide-caption">2024 代表深耕中心參訪 NIMS (日本物質材料研究機構)</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity5.png" alt="Activity 5"><div class="slide-caption">DHLab Group Photo: 2024</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity6.png" alt="Activity 6"><div class="slide-caption">2024 實驗室尾牙聚餐</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity7.png" alt="Activity 7"><div class="slide-caption">2023 參訪 Georgia Institute of Technology</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity8.png" alt="Activity 8"><div class="slide-caption">2023 與朱教授實驗室籃球友誼賽</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity9.png" alt="Activity 9"><div class="slide-caption">2022 實驗室首屆碩士班畢業</div></div>
+                            <div class="carousel-slide"><img src="images/home/activity10.png" alt="Activity 10"><div class="slide-caption">DHLab Group Photo: 2022</div></div>
                         </div>
                     </div>
                     <button class="carousel-btn next-btn">❯</button>
@@ -152,27 +143,88 @@
 
             <div class="bento-item" style="background: #FAFCFB; border: 1px solid #EAEAEA;">
                 <span class="tag" style="background: var(--primary-color); color: #fff;">Latest News</span>
-                <h2 class="bento-title">Lab Updates</h2>
+                <h2 class="bento-title">實驗室最新動態</h2>
                 
-                <ul class="news-list">
-                    <li class="news-item">
-                        <div class="news-date">March 2026</div>
-                        <div class="news-text">Prof. Lien awarded the 2026 Simon M. Sze Junior Chair Professor.</div>
-                    </li>
-                    <li class="news-item">
-                        <div class="news-date">August 2025</div>
-                        <div class="news-text">Prof. Lien awarded the Yushan Young Scholar (2nd term).</div>
-                    </li>
-                    <li class="news-item">
-                        <div class="news-date">May 2025</div>
-                        <div class="news-text">Prof. Lien receives the Micron Innovation Award.</div>
-                    </li>
-                    <li class="news-item">
-                        <div class="news-date">July 2024</div>
-                        <div class="news-text">Prof. Lien receives the NARLabs R&D Platform Excellence Award.</div>
-                    </li>
-                </ul>
-                <a href="awards.html" class="pillar-link" style="margin-top: 20px; display: block;">View All Awards ➜</a>
+                <div class="news-wrapper">
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <div class="news-date">2026</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">王崧存</span> 研究成果發表於 <a href="#" class="journal-link">npj 2D Materials and Applications</a>！</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2026</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">林子傑</span> 研究成果發表於 <a href="https://pubs.acs.org/doi/full/10.1021/acsami.5c20018" target="_blank" class="journal-link">ACS Applied Materials & Interfaces</a>！</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2026</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">潘奕佑</span> 完成博士口試，畢業任職於台積電 (TSMC)。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2026</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">翁子婷</span> 獲選 NIMS 國際合作研究生計畫 (ICGP) 獎學金。</div>
+                        </li>
+                        
+                        <li class="news-item">
+                            <div class="news-date">2025</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">陳世傑</span> 研究成果發表於 <a href="https://pubs.acs.org/doi/full/10.1021/acsnano.4c11846" target="_blank" class="journal-link">ACS Nano</a>！</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2025</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">潘奕佑</span> 研究成果發表於 <a href="https://pubs.acs.org/doi/10.1021/acs.nanolett.4c05333" target="_blank" class="journal-link">Nano Letters</a>！</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2025</div>
+                            <div class="news-text">恭賀 本實驗室榮獲美光創新獎 (Micron Innovation Award)。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2025</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">黃昶彰</span> 獲得陽明交通大學電子所碩士班獎學金。</div>
+                        </li>
+
+                        <li class="news-item">
+                            <div class="news-date">2024</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">張祐誠</span> 研究成果發表於 <a href="https://advanced.onlinelibrary.wiley.com/doi/10.1002/adma.202413212" target="_blank" class="journal-link">Advanced Materials</a>！</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2024</div>
+                            <div class="news-text">恭賀 本實驗室榮獲 2024 年國研院研發服務平台亮點成果獎。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2024</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">曾柏翰</span> 獲得龍門計畫補助，前往加州柏克萊大學 (UC Berkeley)。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2024</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">張祐誠</span>、<span class="name-highlight">翁子婷</span> 獲得 2024 台積電博士獎學金。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2024</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">曾柏翰</span> 獲得陽明交通大學電機學院博士班獎學金。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2024</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">曾柏翰</span>、<span class="name-highlight">張祐誠</span> 獲得 FMS 2024 國際材料科學前沿研討會優秀壁報獎。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2024</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">曾柏翰</span> 獲得 112 年度學生優良研究成果獎。</div>
+                        </li>
+
+                        <li class="news-item">
+                            <div class="news-date">2023</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">陳世傑</span>、<span class="name-highlight">王崧存</span> 獲得陽明交通大學產創學院優秀博士獎學金。</div>
+                        </li>
+                        <li class="news-item">
+                            <div class="news-date">2023</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">Tanveer Ahmed</span> 獲得 2023 中技社科技獎學金 (CTCI Foundation Scholarship)。</div>
+                        </li>
+
+                        <li class="news-item">
+                            <div class="news-date">2022</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">林子傑</span> 獲得陽明交通大學電機學院博士班獎學金。</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
         </div>
