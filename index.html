@@ -85,6 +85,17 @@
 
         /* RWD 手機版適應 */
         @media (max-width: 900px) {
+            /* 修正導覽列被裁切的問題 */
+            header { 
+                flex-direction: column; 
+                gap: 15px; 
+                padding: 15px; 
+            }
+            nav { 
+                flex-wrap: wrap; 
+                justify-content: center; 
+                gap: 10px 15px; 
+            }
             .two-col-grid { grid-template-columns: 1fr; }
             .carousel-track-container { height: 250px; }
             .container { margin-top: 30px; }
