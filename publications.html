@@ -2,7 +2,12 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>DHLab | Publications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="robots" content="noindex">
+
+    <title>Publications & Patents | DHLab 連德軒教授 - 陽明交大電子所 NYCU</title>
+    
     <style>
         /* ================= 基礎設定 ================= */
         :root { 
@@ -24,6 +29,12 @@
         nav a { color: #FFFFFF; text-decoration: none; font-weight: 500; font-size: 0.95rem; padding-bottom: 5px; transition: 0.3s;}
         nav a:hover { border-bottom: 2px solid #FFFFFF; }
         
+        /* 手機版導覽列適應 */
+        @media (max-width: 900px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
+        }
+
         /* ================= 共通排版 ================= */
         .container { max-width: 1050px; margin: 50px auto; padding: 0 20px; }
         h2.section-title { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 40px; font-size: 2.2rem; }
@@ -42,25 +53,23 @@
         .pub-item { 
             display: flex; 
             flex-direction: column;
-            padding: 25px 20px; /* 新增內距，為浮出動畫留空間 */
-            margin: 0 -20px; /* 抵銷內距，確保文字與上下邊緣完美對齊 */
+            padding: 25px 20px; 
+            margin: 0 -20px; 
             border-bottom: 1px solid #EAEAEA; 
-            border-radius: 10px; /* 隱藏的卡片圓角 */
+            border-radius: 10px; 
             position: relative;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* 頂級平滑動畫曲線 */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
         }
         .pub-item:last-child { border-bottom: none; }
         
-        /* 🔥 新增：滑鼠懸停的高級特效 */
         .pub-item:hover {
-            background-color: #FAFCFB; /* 極淡的實驗室主題色底色 */
-            box-shadow: 0 10px 25px rgba(44, 76, 59, 0.08); /* 柔和的專屬陰影 */
-            transform: translateY(-3px); /* 微微上浮 */
-            border-bottom-color: transparent; /* 隱藏底線 */
+            background-color: #FAFCFB; 
+            box-shadow: 0 10px 25px rgba(44, 76, 59, 0.08); 
+            transform: translateY(-3px); 
+            border-bottom-color: transparent; 
             z-index: 10;
         }
 
-        /* 🔥 新增：左側動態裝飾短線 */
         .pub-item::before {
             content: "";
             position: absolute;
@@ -91,27 +100,21 @@
             font-size: 1.15rem; 
             margin-bottom: 6px; 
             line-height: 1.3; 
-            transition: color 0.3s ease; /* 標題變色過渡 */
+            transition: color 0.3s ease; 
         }
         
-        /* 🔥 新增：標題在懸停時跟著亮起 */
-        .pub-item:hover .pub-title {
-            color: var(--primary-color);
-        }
-        
+        .pub-item:hover .pub-title { color: var(--primary-color); }
         .pub-authors { color: #555; font-size: 0.95rem; margin-bottom: 4px; line-height: 1.4;}
         .pi-name { font-weight: bold; color: var(--primary-color); }
-        
         .pub-venue { font-size: 0.95rem; color: #222; }
         .journal-name { font-style: italic; font-weight: 700; color: var(--primary-color); }
         .pub-year { font-weight: bold; color: #000; }
 
-        /* 媒體報導子清單 */
         .media-list { font-size: 0.85rem; color: #666; margin: 10px 0 0 15px; padding-left: 15px; border-left: 2px solid #ddd; list-style-type: none; }
         .media-list li { margin-bottom: 4px; }
         .media-list li::before { content: "📰 "; }
 
-        /* ================= 閱讀文章按鈕 (極簡線條版) ================= */
+        /* ================= 閱讀文章按鈕 ================= */
         .pub-actions { margin-top: 10px; }
         .btn-read { 
             display: inline-flex; 
@@ -136,28 +139,33 @@
         .badge-cover { background-color: var(--badge-gold); color: var(--badge-gold-text); border: 1px solid #FFE4B5; }
         .badge-media { background-color: var(--badge-bg); color: var(--primary-color); border: 1px solid #D1E0D7; }
 
-        /* 專利區塊特殊設計 */
         .patent-number { font-family: 'Courier New', Courier, monospace; background: #f4f4f4; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; font-weight: bold; color: #444;}
 
+        /* ================= 展開/收起按鈕專用設計 ================= */
+        .toggle-container { text-align: center; margin-top: 20px; }
+        .toggle-btn {
+            background-color: #fff;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(44,76,59,0.2);
+        }
+
         /* ================= Cover Gallery 專用樣式 ================= */
-        .cover-gallery-container {
-            text-align: center; 
-            margin: 20px 0; 
-            padding: 30px; 
-            background: #fff; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-        .cover-gallery-img {
-            max-width: 100%; 
-            height: auto; 
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .cover-gallery-img:hover {
-            transform: scale(1.02);
-        }
+        .cover-gallery-container { text-align: center; margin: 20px 0; padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .cover-gallery-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+        .cover-gallery-img:hover { transform: scale(1.02); }
 
         footer { background-color: #E2E8F0; padding: 40px 20px; margin-top: 50px; text-align: center; }
     </style>
@@ -181,7 +189,7 @@
 
         <h3 class="category-title">Publications</h3>
         
-        <div class="pub-list">
+        <div class="pub-list" id="main-pub-list">
             
             <div class="pub-item">
                 <div class="pub-content">
@@ -1135,10 +1143,15 @@
 
         </div> 
         
+        <div class="toggle-container">
+            <button id="toggle-pub-btn" class="toggle-btn">Show All Publications ⬇</button>
+        </div>
+        
         <h3 class="category-title">Cover Gallery</h3>
         <div class="cover-gallery-container">
             <img src="images/publications/cover_gallery.png" alt="Journal Cover Gallery" class="cover-gallery-img">
         </div>
+
         <h3 class="category-title">Patents</h3>
         <div class="pub-list">
             <div class="pub-item">
@@ -1190,5 +1203,38 @@
         <p>© 2026 DHLab. National Yang Ming Chiao Tung University.</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 只針對第一個 pub-list (Publications) 裡面的項目進行控制，不影響 Patents
+            const pubItems = document.querySelectorAll('#main-pub-list .pub-item');
+            const toggleBtn = document.getElementById('toggle-pub-btn');
+            
+            // 設定預設顯示的篇數
+            const INITIAL_SHOW = 5; 
+            let isExpanded = false;
+
+            // 網頁載入時，先隱藏超過 INITIAL_SHOW 數量的文章
+            pubItems.forEach((item, index) => {
+                if (index >= INITIAL_SHOW) {
+                    item.style.display = 'none';
+                }
+            });
+
+            // 綁定按鈕點擊事件
+            toggleBtn.addEventListener('click', () => {
+                isExpanded = !isExpanded;
+                
+                pubItems.forEach((item, index) => {
+                    if (index >= INITIAL_SHOW) {
+                        // 展開時顯示，收起時隱藏
+                        item.style.display = isExpanded ? 'flex' : 'none';
+                    }
+                });
+                
+                // 動態切換按鈕文字
+                toggleBtn.innerHTML = isExpanded ? 'Show Less ⬆' : 'Show All Publications ⬇';
+            });
+        });
+    </script>
 </body>
 </html>
