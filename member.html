@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>實驗室成員 (Members) | DHLab 連德軒教授 - 陽明交大電子所 NYCU</title>
-    
     <meta name="description" content="國立陽明交通大學(NYCU)電子研究所連德軒教授(Prof. Der-Hsien Lien, Danny Lien)帶領的 DHLab 團隊成員介紹。歡迎有志於半導體研究的博碩士生加入。">
-    
     <meta name="keywords" content="交大電子,陽明交大,連德軒,DHLab,Danny Lien,Der-Hsien Lien,半導體研究,NYCU,實驗室成員">
 
     <style>
@@ -59,29 +56,33 @@
         .info-box { background: #FAFCFB; padding: 25px 20px 25px 25px; border-radius: 12px; border: 1px solid #EAEAEA; }
         .info-box h5 { margin: 0 0 15px 0; font-size: 1.25rem; color: var(--primary-color); }
         
-        /* 👑 滾動視窗共同設定：強制顯示捲軸 */
+        /* 👑 強制顯示捲軸核心設定 */
         .scrollable-list { 
             max-height: 280px; 
-            overflow-y: scroll; /* 從 auto 改為 scroll，確保軌道一直存在 */
+            overflow-y: scroll; 
             padding-right: 15px; 
             margin: 0; 
             padding-left: 20px; 
-            -webkit-overflow-scrolling: touch; /* 手機端順暢滾動 */
+            /* 移除 -webkit-overflow-scrolling: touch; 防止 iOS 隱藏捲軸 */
+            scrollbar-width: thin; /* 支援 Firefox */
+            scrollbar-color: #A0A0A0 #F0F0F0;
         }
+        
         .scrollable-list::-webkit-scrollbar { 
-            width: 7px; 
-            -webkit-appearance: none; /* 覆蓋手機瀏覽器預設隱藏捲軸行為 */
+            width: 8px; 
+            background-color: #F0F0F0; /* 直接給定背景色 */
         }
         .scrollable-list::-webkit-scrollbar-track { 
-            background: #F0F0F0; /* 軌道顏色 */
+            background: #F0F0F0; 
             border-radius: 4px; 
         }
         .scrollable-list::-webkit-scrollbar-thumb { 
-            background: #A0A0A0; /* 加深捲軸拉桿顏色，不需 hover 也很明顯 */
+            background-color: #A0A0A0; 
             border-radius: 4px; 
+            border: 2px solid #F0F0F0; /* 畫出邊框強制手機渲染實體感 */
         }
         .scrollable-list::-webkit-scrollbar-thumb:hover { 
-            background: #777; 
+            background-color: #777; 
         }
 
         .scrollable-list li { margin-bottom: 15px; font-size: 0.95rem; line-height: 1.5; color: #444; }
@@ -114,37 +115,31 @@
         .contact-details a { color: #fff; text-decoration: none; }
         .contact-details a:hover { text-decoration: underline; }
 
-        /* ================= RWD 手機版適應 (精緻化微整型) ================= */
+        /* ================= RWD 手機版適應 ================= */
         @media (max-width: 850px) {
-            /* 導覽列 */
             header { flex-direction: column; gap: 15px; padding: 15px; }
             nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
             
-            /* 容器縮減 */
             .container { margin-top: 25px; padding: 0 15px; }
             h2.section-title { font-size: 1.6rem; margin-top: 30px; margin-bottom: 20px; }
             
-            /* 老師卡片瘦身 */
             .prof-card { padding: 25px 20px; margin-bottom: 35px; }
-            .prof-top { gap: 20px; flex-direction: column; align-items: center; text-align: center; } /* 手機版讓照片置中 */
+            .prof-top { gap: 20px; flex-direction: column; align-items: center; text-align: center; } 
             .prof-img-wrapper { flex: 1 1 100%; }
             .prof-info { min-width: 100%; text-align: left; }
             .prof-info h3 { font-size: 1.7rem; text-align: center; }
             .prof-info h4 { font-size: 1rem; text-align: center; }
             .scholar-stats { justify-content: center; margin-bottom: 25px;}
             
-            /* 雙欄滾動區改單欄，減少留白 */
             .prof-bottom { grid-template-columns: 1fr; gap: 20px; padding-top: 25px; }
             .info-box { padding: 20px 15px; }
             .scrollable-list { max-height: 250px; padding-left: 15px; }
             
-            /* 學生卡片微調 (容許一排塞兩個) */
             .grid-container { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-bottom: 40px; }
             .student-card { padding: 15px 10px; }
-            .student-img { width: 110px; height: 110px; } /* 照片縮小一點點 */
+            .student-img { width: 110px; height: 110px; } 
             .student-name { font-size: 1.15rem; }
             
-            /* 聯絡區塊瘦身 */
             .contact-section { padding: 35px 20px; }
             .contact-section h2 { font-size: 1.8rem; }
             .contact-section p { font-size: 1.05rem; }
@@ -154,7 +149,6 @@
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">DHLab</a>
         <nav>
