@@ -141,33 +141,33 @@
 
         .patent-number { font-family: 'Courier New', Courier, monospace; background: #f4f4f4; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; font-weight: bold; color: #444;}
 
-        /* ================= 展開/收起按鈕專用設計 ================= */
-        .toggle-container { text-align: center; margin-top: 20px; }
-        .toggle-btn {
-            background-color: #fff;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-            padding: 10px 30px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .toggle-btn:hover {
-            background-color: var(--primary-color);
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(44,76,59,0.2);
-        }
-
         /* ================= Cover Gallery 專用樣式 ================= */
         .cover-gallery-container { text-align: center; margin: 20px 0; padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .cover-gallery-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
         .cover-gallery-img:hover { transform: scale(1.02); }
 
-        footer { background-color: #E2E8F0; padding: 40px 20px; margin-top: 50px; text-align: center; }
+        footer { background-color: var(--primary-color); padding: 40px 20px 20px; text-align: center; color: #D1E0D7; font-size: 0.95rem; margin-top: 50px;}
+
+        /* ================= RWD 手機版適應 (精緻化微整型) ================= */
+        @media (max-width: 850px) {
+            .container { margin-top: 25px; padding: 0 15px; }
+            h2.section-title { font-size: 1.6rem; margin-bottom: 25px; }
+            h3.category-title { font-size: 1.3rem; margin-top: 30px; margin-bottom: 15px; }
+            
+            /* 清單容器與項目瘦身 */
+            .pub-list { padding: 5px 15px; }
+            .pub-item { padding: 20px 15px; margin: 0 -15px; }
+            
+            /* 字體與排版微調 */
+            .pub-title { font-size: 1.05rem; }
+            .pub-authors { font-size: 0.9rem; }
+            .pub-venue { font-size: 0.9rem; }
+            
+            /* 讓按鈕自己佔一行，比較好點 */
+            .pub-actions { margin-top: 15px; display: flex; justify-content: flex-start; }
+            .badge { display: block; margin-left: 0; margin-top: 5px; width: fit-content; }
+        }
+
     </style>
 </head>
 <body>
@@ -1142,14 +1142,9 @@
 
         </div> 
         
-        <div class="toggle-container">
-            <button id="toggle-pub-btn" class="toggle-btn">Show All Publications ⬇</button>
-        </div>
-        
         <h3 class="category-title">Cover Gallery</h3>
         <div class="cover-gallery-container">
-
-        </div>
+            </div>
 
         <h3 class="category-title">Patents</h3>
         <div class="pub-list">
@@ -1202,38 +1197,5 @@
         <p>© 2026 DHLab. National Yang Ming Chiao Tung University.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // 只針對第一個 pub-list (Publications) 裡面的項目進行控制，不影響 Patents
-            const pubItems = document.querySelectorAll('#main-pub-list .pub-item');
-            const toggleBtn = document.getElementById('toggle-pub-btn');
-            
-            // 設定預設顯示的篇數
-            const INITIAL_SHOW = 5; 
-            let isExpanded = false;
-
-            // 網頁載入時，先隱藏超過 INITIAL_SHOW 數量的文章
-            pubItems.forEach((item, index) => {
-                if (index >= INITIAL_SHOW) {
-                    item.style.display = 'none';
-                }
-            });
-
-            // 綁定按鈕點擊事件
-            toggleBtn.addEventListener('click', () => {
-                isExpanded = !isExpanded;
-                
-                pubItems.forEach((item, index) => {
-                    if (index >= INITIAL_SHOW) {
-                        // 展開時顯示，收起時隱藏
-                        item.style.display = isExpanded ? 'flex' : 'none';
-                    }
-                });
-                
-                // 動態切換按鈕文字
-                toggleBtn.innerHTML = isExpanded ? 'Show Less ⬆' : 'Show All Publications ⬇';
-            });
-        });
-    </script>
 </body>
 </html>
