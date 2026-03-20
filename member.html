@@ -16,6 +16,7 @@
             --bg-color: #F5F4F0; 
             --primary-color: #2C4C3B; 
             --secondary-color: #3A634D; 
+            --accent-gold: #B87500;
             --text-color: #333333; 
             --link-blue: #0066cc; 
         }
@@ -32,7 +33,7 @@
         .container { max-width: 1050px; margin: 40px auto; padding: 0 20px; }
         h2.section-title { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px; font-size: 2rem; }
 
-        /* ================= 老師介紹區塊 (重新平衡排版) ================= */
+        /* ================= 老師介紹區塊 ================= */
         .prof-card { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 50px; }
         
         /* 上半部：照片與簡歷 */
@@ -49,16 +50,37 @@
         
         .scholar-stats { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
         .stat-badge { background: #eef2f0; border-left: 4px solid var(--primary-color); padding: 10px 20px; border-radius: 0 8px 8px 0; font-weight: bold; color: var(--primary-color); }
-        .scholar-btn { display: inline-block; background-color: var(--primary-color); color: #fff; padding: 10px 0; width: 100%; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(44,76,59,0.2); }
+        .scholar-btn { display: inline-block; background-color: var(--primary-color); color: #fff; padding: 10px 0; width: 100%; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(44,76,59,0.2); text-align: center;}
         .scholar-btn:hover { background-color: var(--secondary-color); transform: translateY(-2px); }
 
-        /* 下半部：精選期刊 (改為滿版) */
-        .selected-pubs { background: #fdfdfd; padding: 25px; border-radius: 8px; border: 1px solid #eee; }
-        .selected-pubs h5 { margin: 0 0 15px 0; font-size: 1.2rem; color: var(--primary-color); }
-        .selected-pubs ul { margin: 0; padding-left: 20px; }
-        .selected-pubs li { margin-bottom: 12px; font-size: 0.95rem; line-height: 1.5; color: #444; }
+        /* ================= 下半部：期刊與獎項 (雙欄滾動設計) ================= */
+        .prof-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; border-top: 1px dashed #E0E0E0; padding-top: 30px; }
+        
+        .info-box { background: #FAFCFB; padding: 25px 20px 25px 25px; border-radius: 12px; border: 1px solid #EAEAEA; }
+        .info-box h5 { margin: 0 0 15px 0; font-size: 1.25rem; color: var(--primary-color); }
+        
+        /* 滾動視窗共同設定 */
+        .scrollable-list { max-height: 280px; overflow-y: auto; padding-right: 15px; margin: 0; padding-left: 20px; }
+        .scrollable-list::-webkit-scrollbar { width: 6px; }
+        .scrollable-list::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .scrollable-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        .scrollable-list::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+        .scrollable-list li { margin-bottom: 15px; font-size: 0.95rem; line-height: 1.5; color: #444; }
+        .scrollable-list li:last-child { margin-bottom: 0; }
+        
+        /* 期刊專屬樣式 */
         .journal-name { font-style: italic; font-weight: bold; color: var(--primary-color); }
-        .co-author { color: #888; font-size: 0.85rem; }
+        
+        /* 獎項專屬樣式 */
+        .award-year { color: var(--accent-gold); font-weight: bold; font-size: 1rem; margin-right: 5px; }
+        .award-title { font-weight: bold; color: #222; }
+        .award-desc { display: block; color: #777; font-size: 0.85rem; margin-top: 3px; line-height: 1.4; }
+
+        @media (max-width: 850px) {
+            .prof-bottom { grid-template-columns: 1fr; }
+            .scrollable-list { max-height: 250px; }
+        }
 
         /* ================= 學生網格系統 ================= */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; margin-bottom: 60px; }
@@ -90,7 +112,6 @@
             <a href="member.html" style="border-bottom: 2px solid #FFFFFF;">MEMBER</a> 
             <a href="publications.html">PUBLICATIONS</a>
             <a href="research.html">RESEARCH</a> 
-            <a href="awards.html">AWARDS</a> 
             <a href="activity.html">ACTIVITY</a>
         </nav>
     </header>
@@ -126,19 +147,39 @@
                 </div>
             </div>
 
-            <div class="selected-pubs">
-                <h5>Selected Publications</h5>
-                <ul>
-		<li>"Breaking the Trade-Off Between Mobility and On–Off Ratio in Oxide Transistors.", <span class="journal-name">Advanced Materials</span>, 2413212, 2024.</li>
-                    <li>"Wide-range and area-selective threshold voltage tunability in ultrathin indium oxide transistors", <span class="journal-name">Nature Communications</span>, 14, 5243, 2023.</li>
-                    <li>"Actively variable spectrum optoelectronics with black phosphorus", <span class="journal-name">Nature</span>, 596, 232–237, 2021.</li>
-                    <li>"Evaporated Te thin films for p-type field-effect transistors and circuits", <span class="journal-name">Nature Nanotechnology</span>, 15, 53–58, 2020.</li>
-                    <li>"A generic electroluminescent device for emission from infrared to ultraviolet wavelengths", <span class="journal-name">Nature Electronics</span>, 2020.</li>
-                    <li>"Electrical suppression of all nonradiative recombination pathways in monolayer semiconductors", <span class="journal-name">Science</span>, 364, 468, 2019.</li>
-                    <li>"Large-Area and Bright Pulsed Electroluminescence in Monolayer Semiconductors", <span class="journal-name">Nature Communications</span>, 9, 1129, 2018.</li>
-                    <li>"Near-Unity Photoluminescence Quantum Yield in MoS2", <span class="journal-name">Science</span>, 350, 1065, 2015.</li>
-                    <li>"Paper Memory by All-Printing Technology", <span class="journal-name">Symposium on VLSI Technology</span>, 978-1-4799-3332, 2014.</li>
-                </ul>
+            <div class="prof-bottom">
+                
+                <div class="info-box">
+                    <h5>Selected Publications</h5>
+                    <ul class="scrollable-list">
+                        <li>"Breaking the Trade-Off Between Mobility and On–Off Ratio in Oxide Transistors.", <span class="journal-name">Advanced Materials</span>, 2413212, 2024.</li>
+                        <li>"Wide-range and area-selective threshold voltage tunability in ultrathin indium oxide transistors", <span class="journal-name">Nature Communications</span>, 14, 5243, 2023.</li>
+                        <li>"Actively variable spectrum optoelectronics with black phosphorus", <span class="journal-name">Nature</span>, 596, 232–237, 2021.</li>
+                        <li>"Evaporated Te thin films for p-type field-effect transistors and circuits", <span class="journal-name">Nature Nanotechnology</span>, 15, 53–58, 2020.</li>
+                        <li>"A generic electroluminescent device for emission from infrared to ultraviolet wavelengths", <span class="journal-name">Nature Electronics</span>, 2020.</li>
+                        <li>"Electrical suppression of all nonradiative recombination pathways in monolayer semiconductors", <span class="journal-name">Science</span>, 364, 468, 2019.</li>
+                        <li>"Large-Area and Bright Pulsed Electroluminescence in Monolayer Semiconductors", <span class="journal-name">Nature Communications</span>, 9, 1129, 2018.</li>
+                        <li>"Near-Unity Photoluminescence Quantum Yield in MoS2", <span class="journal-name">Science</span>, 350, 1065, 2015.</li>
+                        <li>"Paper Memory by All-Printing Technology", <span class="journal-name">Symposium on VLSI Technology</span>, 978-1-4799-3332, 2014.</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <h5>Honors & Awards</h5>
+                    <ul class="scrollable-list">
+                        <li><span class="award-year">2026</span> <span class="award-title">Simon M. Sze Junior Chair Professor</span></li>
+                        <li><span class="award-year">2025</span> <span class="award-title">Yushan Young Scholar (2nd term)</span> <span class="award-desc">Supported by the Ministry of Education (MOE)</span></li>
+                        <li><span class="award-year">2025</span> <span class="award-title">Micron Innovation Award</span></li>
+                        <li><span class="award-year">2024</span> <span class="award-title">NARLabs R&D Platform Excellence Award</span> <span class="award-desc">Research and application of atomically thin oxide semiconductors</span></li>
+                        <li><span class="award-year">2022</span> <span class="award-title">International Association of Advanced Materials (IAAM) Fellow</span></li>
+                        <li><span class="award-year">2021</span> <span class="award-title">Outstanding Young Scholar</span> <span class="award-desc">The Electronics Device and Materials Association (EDMA)</span></li>
+                        <li><span class="award-year">2020</span> <span class="award-title">Yushan Young Scholar</span> <span class="award-desc">Supported by the Ministry of Education (MOE)</span></li>
+                        <li><span class="award-year">2020</span> <span class="award-title">ASPEED Junior Chair Professor</span> <span class="award-desc">Supported by ASPEED TECHNOLOGY INC.</span></li>
+                        <li><span class="award-year">2016</span> <span class="award-title">First Prize of the Lam Research Award</span> <span class="award-desc">Lam Research Corporation, Fremont, CA, U.S.A<br>An award granted for cultivated excellent technology researcher</span></li>
+                        <li><span class="award-year">2015</span> <span class="award-title">IEEE EDS PhD Fellowship</span> <span class="award-desc">IEEE Electron Devices Society<br>The winner of the award in 2015</span></li>
+                    </ul>
+                </div>
+
             </div>
 
         </div>
@@ -162,8 +203,8 @@
             <div class="student-card"><img src="images/member/沈琬苹.jpg" alt="Student" class="student-img"><div class="student-name">沈琬苹​</div></div>
             <div class="student-card"><img src="images/member/宸彰.jpg" alt="Student" class="student-img"><div class="student-name">宸彰​</div></div>
             <div class="student-card"><img src="images/member/​矯昀叡.jpg" alt="Student" class="student-img"><div class="student-name">​矯昀叡​</div></div>
-			<div class="student-card"><img src="images/member/ms16.jpg" alt="Student" class="student-img"><div class="student-name">莊定燁​</div></div>
-			<div class="student-card"><img src="images/member/ms15.jpg" alt="Student" class="student-img"><div class="student-name">鄭恩浩</div></div>
+            <div class="student-card"><img src="images/member/ms16.jpg" alt="Student" class="student-img"><div class="student-name">莊定燁​</div></div>
+            <div class="student-card"><img src="images/member/ms15.jpg" alt="Student" class="student-img"><div class="student-name">鄭恩浩</div></div>
             <div class="student-card"><img src="images/member/ms6.jpg" alt="Student" class="student-img"><div class="student-name">​許智維</div></div>
             <div class="student-card"><img src="images/member/ms7.jpg" alt="Student" class="student-img"><div class="student-name">李昊澤</div></div>
             <div class="student-card"><img src="images/member/ms8.jpg" alt="Student" class="student-img"><div class="student-name">​鄭聖倫</div></div>
@@ -196,11 +237,4 @@
     </div>
 
 </body>
-
 </html>
-
-
-
-
-
-
