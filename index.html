@@ -115,15 +115,29 @@
         .journal-link { color: #0056b3; text-decoration: none; font-weight: bold; transition: color 0.2s; }
         .journal-link:hover { color: #003d82; text-decoration: underline; }
 
-        /* ================= RWD 手機版適應 ================= */
+        /* ================= RWD 手機版適應 (精緻化微整型) ================= */
         @media (max-width: 900px) {
             header { flex-direction: column; gap: 15px; padding: 15px; }
             nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
-            .two-col-grid { grid-template-columns: 1fr; }
+            
+            /* 整體容器留白調整 */
+            .container { margin-top: 25px; padding: 0 15px; }
+            .two-col-grid { grid-template-columns: 1fr; gap: 20px; }
             .research-grid { grid-template-columns: 1fr; gap: 15px; }
-            .carousel-track-container { height: 250px; }
-            .container { margin-top: 30px; }
-            .news-wrapper { height: 350px; }
+            
+            /* 卡片瘦身：大幅減少 padding，把螢幕空間還給文字 */
+            .bento-item { padding: 25px 20px; border-radius: 12px; }
+            .research-bento { padding: 25px 20px; }
+            .research-item { padding: 20px; }
+            
+            /* 標題字體縮小，避免手機版視覺過重 */
+            .bento-title { font-size: 1.45rem; margin-bottom: 15px; }
+            .research-bento .bento-title { font-size: 1.45rem; }
+            .research-item h3 { font-size: 1.15rem; margin-bottom: 8px; }
+            
+            /* 壓縮高度，降低手機滑動的疲勞感 */
+            .carousel-track-container { height: 220px; }
+            .news-wrapper { height: 300px; }
         }
 
         /* ================= Footer ================= */
