@@ -31,9 +31,7 @@
         /* ================= 佈局容器 ================= */
         .container { max-width: 1200px; margin: 50px auto 100px; padding: 0 20px; }
         
-        /* ================= 極簡兩欄式排版 ================= */
-        .two-col-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; }
-        
+        /* ================= Bento 卡片共通設計 ================= */
         .bento-item { background: #fff; border-radius: 16px; padding: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; position: relative; }
         .bento-item:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
 
@@ -43,6 +41,43 @@
         .pillar-link { color: var(--accent-gold); text-decoration: none; font-weight: bold; font-size: 1rem; }
         .pillar-link:hover { text-decoration: underline; }
 
+        /* ================= 首頁精簡版 Research 區塊 ================= */
+        .research-bento { margin-bottom: 30px; padding: 35px 40px; } 
+        .research-bento .bento-title { font-size: 1.8rem; margin-bottom: 20px; }
+        .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
+        
+        .research-item { 
+            background: #FAFCFB; 
+            border: 2px solid #EAEAEA; 
+            border-left: 6px solid var(--primary-color); 
+            padding: 25px; 
+            border-radius: 12px; 
+            transition: all 0.3s; 
+        }
+        .research-item:hover { 
+            border-color: var(--primary-color); 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 15px rgba(44,76,59,0.08); 
+        }
+        .research-item h3 { 
+            color: var(--primary-color); 
+            font-size: 1.25rem; 
+            font-weight: 800; 
+            margin-top: 0; 
+            margin-bottom: 10px; 
+            line-height: 1.3; 
+        }
+        .research-item p { 
+            font-size: 1.05rem; 
+            color: #555; 
+            line-height: 1.6; 
+            margin: 0; 
+            text-align: justify; 
+        }
+
+        /* ================= 極簡兩欄式排版 (下方照片與新聞) ================= */
+        .two-col-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; }
+        
         /* ================= 輪播圖 (Carousel) ================= */
         .carousel-wrapper { position: relative; width: 100%; border-radius: 12px; overflow: hidden; margin-bottom: 25px; background: #EAEAEA; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .carousel-track-container { width: 100%; height: 320px; position: relative; overflow: hidden; }
@@ -62,19 +97,13 @@
         .dot.active, .dot:hover { background-color: #fff; transform: scale(1.2); }
 
         /* ================= 緊湊版 滾動式最新消息清單 ================= */
-        .news-wrapper { 
-            height: 500px; /* 🔥 窗戶開大！從 440px 放大到 500px，吃掉下方多餘空白 */
-            overflow-y: auto; 
-            padding-right: 15px; 
-        }
-        
+        .news-wrapper { height: 500px; overflow-y: auto; padding-right: 15px; }
         .news-wrapper::-webkit-scrollbar { width: 6px; }
         .news-wrapper::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .news-wrapper::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
         .news-wrapper::-webkit-scrollbar-thumb:hover { background: #aaa; }
 
         .news-list { list-style: none; padding: 0; margin: 0; }
-        
         .news-item { border-bottom: 1px dashed #E0E0E0; padding: 12px 0; }
         .news-item:first-child { padding-top: 5px; }
         .news-item:last-child { border-bottom: none; padding-bottom: 0;}
@@ -82,27 +111,16 @@
         .news-date { color: var(--accent-gold); font-size: 0.9rem; font-weight: bold; margin-bottom: 3px; }
         .news-text { font-size: 1rem; color: #333; line-height: 1.5; }
         
-        /* 學生名字專屬高光顏色 */
         .name-highlight { color: #A93226; font-weight: bold; }
-
-        /* 期刊藍色連結特效 */
         .journal-link { color: #0056b3; text-decoration: none; font-weight: bold; transition: color 0.2s; }
         .journal-link:hover { color: #003d82; text-decoration: underline; }
 
-        /* RWD 手機版適應 */
+        /* ================= RWD 手機版適應 ================= */
         @media (max-width: 900px) {
-            /* 修正導覽列被裁切的問題 */
-            header { 
-                flex-direction: column; 
-                gap: 15px; 
-                padding: 15px; 
-            }
-            nav { 
-                flex-wrap: wrap; 
-                justify-content: center; 
-                gap: 10px 15px; 
-            }
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
             .two-col-grid { grid-template-columns: 1fr; }
+            .research-grid { grid-template-columns: 1fr; gap: 15px; }
             .carousel-track-container { height: 250px; }
             .container { margin-top: 30px; }
             .news-wrapper { height: 350px; }
@@ -126,6 +144,28 @@
     </header>
 
     <div class="container">
+        
+        <div class="bento-item research-bento">
+            <span class="tag" style="background: var(--primary-color); color: #fff; margin-bottom: 15px;">Research Focus</span>
+            <h2 class="bento-title">Our Research Highlights</h2>
+            
+            <div class="research-grid">
+                
+                <div class="research-item">
+                    <h3>Semiconductor Physics in 2D Limits</h3>
+                    <p>Exploring fundamental physics at ultimate thickness limits. We focus on carrier dynamics, exciton behavior, and novel transport mechanisms in scaled systems beyond conventional limitations.</p>
+                </div>
+                
+                <div class="research-item">
+                    <h3>Monolithic 3D Electronics & Innovations</h3>
+                    <p>Developing advanced processing techniques for monolithic 3D integration and BEOL applications. We bridge academic discovery with industrial manufacturability through industrial collaborations.</p>
+                </div>
+
+            </div>
+            
+            <a href="research.html" class="pillar-link">Discover More Research Details ➜</a>
+        </div>
+
         <div class="two-col-grid">
             
             <div class="bento-item">
