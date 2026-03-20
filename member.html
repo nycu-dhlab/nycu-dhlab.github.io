@@ -77,7 +77,13 @@
         .award-title { font-weight: bold; color: #222; }
         .award-desc { display: block; color: #777; font-size: 0.85rem; margin-top: 3px; line-height: 1.4; }
 
+        /* ================= RWD 手機版適應 ================= */
         @media (max-width: 850px) {
+            /* 修復導覽列超出螢幕的問題 */
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
+            
+            /* 其他手機版排版調整 */
             .prof-bottom { grid-template-columns: 1fr; }
             .scrollable-list { max-height: 250px; }
         }
