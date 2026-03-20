@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DHLab | Research</title>
     <style>
         /* ================= 基礎設定 ================= */
@@ -34,14 +35,14 @@
 
         .card-summary { display: flex; padding: 40px; gap: 40px; align-items: center; }
         
-        /* 👑 修改這裡：讓主圖框變寬，並且絕對不裁切 (contain) */
+        /* 主圖框設定 */
         .research-img-wrapper { 
-            flex: 0 0 380px; /* 變寬以容納長方形 GIF */
+            flex: 0 0 380px; 
             height: 250px; 
             border-radius: 8px; 
             overflow: hidden; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            background: #fff; /* 白底，避免透明邊緣 */
+            background: #fff; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,7 +50,7 @@
         .research-img-wrapper img { 
             width: 100%; 
             height: 100%; 
-            object-fit: contain; /* 改成 contain，圖形完整顯示不裁切 */
+            object-fit: contain; 
         }
         
         .research-content { flex: 1; }
@@ -75,18 +76,18 @@
         .relevant-pubs ul { margin: 0; padding-left: 20px; font-size: 0.95rem; color: #555; }
         .relevant-pubs li { margin-bottom: 5px; }
 
-        /* ================= 多圖網格 彈性大小版 ================= */
+        /* ================= 多圖網格 ================= */
         .details-gallery { 
             display: flex; 
             flex-wrap: wrap; 
             justify-content: center; 
-            align-items: center; /* 確保圖片不被不當拉伸壓縮 */
+            align-items: center; 
             gap: 30px; 
         }
 
         .gallery-item { 
             width: 100%; 
-            max-width: 900px; /* 預設大圖尺寸 */
+            max-width: 900px; 
             height: auto; 
             background: #fff; 
             border: 1px solid #ddd; 
@@ -95,6 +96,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
             cursor: zoom-in;
             transition: transform 0.3s, border-color 0.3s; 
+            box-sizing: border-box;
         }
 
         .gallery-item:hover { 
@@ -102,15 +104,10 @@
             border-color: var(--primary-color); 
         }
 
-        /* 👑 精準尺寸控制器 */
-        .gallery-item.size-sm {
-            max-width: 420px; /* 小尺寸：兩個可並排 */
-        }
-        .gallery-item.size-md {
-            max-width: 750px; /* 中等尺寸：圖表清晰，又不會太大 */
-        }
+        .gallery-item.size-sm { max-width: 420px; }
+        .gallery-item.size-md { max-width: 750px; }
 
-        /* ================= 燈箱效果 (Lightbox Modal) ================= */
+        /* ================= 燈箱效果 ================= */
         #lightbox {
             display: none; position: fixed; z-index: 9999; top: 0; left: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.9);
@@ -119,7 +116,42 @@
         #lightbox img { max-width: 90%; max-height: 90%; border: 3px solid #fff; border-radius: 5px; box-shadow: 0 0 30px rgba(0,0,0,0.5); object-fit: contain; }
         .close-lightbox { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 50px; cursor: pointer; }
 
-        footer { background-color: #E2E8F0; padding: 40px 20px; margin-top: 50px; text-align: center; }
+        /* 同步其他頁面的深色 Footer */
+        footer { background-color: var(--primary-color); padding: 40px 20px 20px; text-align: center; color: #D1E0D7; font-size: 0.95rem; margin-top: 50px;}
+
+        /* ================= RWD 手機版適應 ================= */
+        @media (max-width: 850px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
+
+            .container { margin-top: 30px; padding: 0 15px; }
+            h2.section-title { font-size: 1.8rem; margin-bottom: 30px; }
+
+            /* 卡片排版改為垂直 */
+            .card-summary { flex-direction: column; padding: 25px 20px; gap: 20px; }
+            
+            /* 圖框取消固定寬度，高度自適應縮小 */
+            .research-img-wrapper { 
+                flex: 1 1 100%; 
+                width: 100%; 
+                max-width: 100%; 
+                height: 200px; 
+            }
+            
+            /* 內文與標題微調 */
+            .research-content h3 { font-size: 1.4rem; }
+            .research-content p { font-size: 1rem; }
+            
+            /* 展開區域減少留白 */
+            .card-details { padding: 0 20px; }
+            .research-card.expanded .card-details { padding: 25px 20px; }
+            .details-text { font-size: 1rem; margin-bottom: 20px; }
+
+            /* 多圖網格間距縮小 */
+            .details-gallery { gap: 15px; }
+            .gallery-item { padding: 10px; border-radius: 6px; }
+            .gallery-item.size-sm, .gallery-item.size-md { max-width: 100%; } /* 手機上所有圖皆滿版 */
+        }
 
     </style>
 </head>
@@ -191,6 +223,7 @@
                 <div class="details-text">
                     <p>My research focuses on the exploration and engineering of emerging semiconductors, including 2D materials, oxide semiconductors, and many others. By investigating fundamental material properties at the atomic scale, we develop advanced processing techniques to enable high-performance monolithic 3D integration and back-end-of-line applications. We aim to bridge the gap between academic discovery and industrial manufacturability. Our work is deeply integrated with the industrial landscape in Taiwan, featuring close collaborations with TSMC and MediaTek to develop next-generation circuits, such as CFETs and beyond.</p>
                     <p>We are also driven by the electronic innovation to bypass conventional physical limitations. I developed a transient-mode AC carrier injection scheme to address the injection inefficiency inherent in Schottky contacts, which enables efficient carrier injection and electroluminescence across various material systems, including 2D, III-V, QDs, etc. Our innovation extends to the forefront of functional integration and advanced packaging, such as memristor-based RF switches integrated on flexible interposers for 3D packaging in 6G communications. We have also pioneered developments in printable memories and resonance-enhanced optoelectronic sensors. Furthermore, we collaborate with industry partners to integrate AI-driven multitask learning algorithms into wearable systems for real-time physiological and biochemical monitoring. Our ultimate goal is to provide a viable pathway for integrating advanced semiconductors into the next generation of versatile electronics. </p>
+                </div>
 
                 <div class="relevant-pubs">
                     <h4>Relevant Publications:</h4>
