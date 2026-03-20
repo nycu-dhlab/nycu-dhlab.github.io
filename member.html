@@ -77,17 +77,6 @@
         .award-title { font-weight: bold; color: #222; }
         .award-desc { display: block; color: #777; font-size: 0.85rem; margin-top: 3px; line-height: 1.4; }
 
-        /* ================= RWD 手機版適應 ================= */
-        @media (max-width: 850px) {
-            /* 修復導覽列超出螢幕的問題 */
-            header { flex-direction: column; gap: 15px; padding: 15px; }
-            nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
-            
-            /* 其他手機版排版調整 */
-            .prof-bottom { grid-template-columns: 1fr; }
-            .scrollable-list { max-height: 250px; }
-        }
-
         /* ================= 學生網格系統 ================= */
         .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; margin-bottom: 60px; }
         .student-card { background: #fff; padding: 25px 15px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: transform 0.3s, box-shadow 0.3s; }
@@ -106,6 +95,43 @@
         .contact-details { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 1.1rem; font-weight: bold; }
         .contact-details a { color: #fff; text-decoration: none; }
         .contact-details a:hover { text-decoration: underline; }
+
+        /* ================= RWD 手機版適應 (精緻化微整型) ================= */
+        @media (max-width: 850px) {
+            /* 導覽列 */
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
+            
+            /* 容器縮減 */
+            .container { margin-top: 25px; padding: 0 15px; }
+            h2.section-title { font-size: 1.6rem; margin-top: 30px; margin-bottom: 20px; }
+            
+            /* 老師卡片瘦身 */
+            .prof-card { padding: 25px 20px; margin-bottom: 35px; }
+            .prof-top { gap: 20px; flex-direction: column; align-items: center; text-align: center; } /* 手機版讓照片置中 */
+            .prof-img-wrapper { flex: 1 1 100%; }
+            .prof-info { min-width: 100%; text-align: left; }
+            .prof-info h3 { font-size: 1.7rem; text-align: center; }
+            .prof-info h4 { font-size: 1rem; text-align: center; }
+            .scholar-stats { justify-content: center; margin-bottom: 25px;}
+            
+            /* 雙欄滾動區改單欄，減少留白 */
+            .prof-bottom { grid-template-columns: 1fr; gap: 20px; padding-top: 25px; }
+            .info-box { padding: 20px 15px; }
+            .scrollable-list { max-height: 250px; padding-left: 15px; }
+            
+            /* 學生卡片微調 (容許一排塞兩個) */
+            .grid-container { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-bottom: 40px; }
+            .student-card { padding: 15px 10px; }
+            .student-img { width: 110px; height: 110px; } /* 照片縮小一點點 */
+            .student-name { font-size: 1.15rem; }
+            
+            /* 聯絡區塊瘦身 */
+            .contact-section { padding: 35px 20px; }
+            .contact-section h2 { font-size: 1.8rem; }
+            .contact-section p { font-size: 1.05rem; }
+            .contact-details { gap: 15px; flex-direction: column; align-items: center; }
+        }
 
     </style>
 </head>
