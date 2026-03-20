@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>DHLab | Activity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>DHLab | Activity</title>
     <style>
         /* ================= 基礎設定 ================= */
         :root { 
@@ -103,20 +103,16 @@
 
         /* ================= RWD 手機版適應 (精緻化微整型) ================= */
         @media (max-width: 850px) {
-            /* 導覽列適應 */
             header { flex-direction: column; gap: 15px; padding: 15px; }
             nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
 
-            /* 容器與標題縮減 */
             .container { margin-top: 30px; padding: 0 15px; }
             h2.section-title { font-size: 1.8rem; margin-bottom: 30px; padding-bottom: 10px; }
             .year-divider { font-size: 1.6rem; margin: 40px 0 20px 0; border-left-width: 6px; }
 
-            /* 網格改單欄，避免太窄的手機產生左右卷軸 */
             .activity-grid { grid-template-columns: 1fr; gap: 15px; }
-            .activity-card { height: 220px; } /* 手機版高度稍微縮減 */
+            .activity-card { height: 220px; } 
 
-            /* 手機版沒有 Hover，讓標題預設直接顯示，並調亮底圖 */
             .activity-card img { filter: brightness(0.65) contrast(1.1); }
             .activity-title { 
                 transform: translateY(0); 
@@ -125,11 +121,9 @@
                 background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
             }
         }
-
     </style>
 </head>
 <body>
-
     <header>
         <a href="index.html" class="logo">DHLab</a>
         <nav>
