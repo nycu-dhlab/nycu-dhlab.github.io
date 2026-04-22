@@ -41,8 +41,11 @@
         .pillar-link { color: var(--accent-gold); text-decoration: none; font-weight: bold; font-size: 1rem; }
         .pillar-link:hover { text-decoration: underline; }
 
+        /* ================= 極簡兩欄式排版 (上方照片與新聞) ================= */
+        .two-col-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; margin-bottom: 30px; }
+        
         /* ================= 首頁精簡版 Research 區塊 ================= */
-        .research-bento { margin-bottom: 30px; padding: 35px 40px; } 
+        .research-bento { padding: 35px 40px; margin-bottom: 0; } 
         .research-bento .bento-title { font-size: 1.8rem; margin-bottom: 20px; }
         .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
         
@@ -83,9 +86,6 @@
             text-align: justify; 
         }
 
-        /* ================= 極簡兩欄式排版 (下方照片與新聞) ================= */
-        .two-col-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 30px; }
-        
         /* ================= 輪播圖 (Carousel) ================= */
         .carousel-wrapper { position: relative; width: 100%; border-radius: 12px; overflow: hidden; margin-bottom: 25px; background: #EAEAEA; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .carousel-track-container { width: 100%; height: 320px; position: relative; overflow: hidden; }
@@ -166,29 +166,6 @@
 
     <div class="container">
         
-        <div class="bento-item research-bento">
-            <span class="tag" style="background: var(--primary-color); color: #fff; margin-bottom: 15px;">Research Focus</span>
-            <h2 class="bento-title">Our Research Highlights</h2>
-            
-            <div class="research-grid">
-                
-                <div class="research-item">
-                    <h3>Monolithic 3D Electronics & Innovations</h3>
-                    <img src="images/home/messageImage_1775113162125_0.jpg" alt="Monolithic 3D Electronics">
-                    <p>Developing advanced processing techniques for monolithic 3D integration and BEOL applications. We bridge academic discovery with industrial manufacturability through industrial collaborations.</p>
-                </div>
-                
-                <div class="research-item">
-                    <h3>Semiconductor Physics in 2D Limits</h3>
-                    <img src="images/home/messageImage_1775112861322_0.jpg" alt="Semiconductor Physics in 2D Limits">
-                    <p>Exploring fundamental physics at ultimate thickness limits. We focus on carrier dynamics, exciton behavior, and novel transport mechanisms in scaled systems beyond conventional limitations.</p>
-                </div>
-
-            </div>
-            
-            <a href="research.html" class="pillar-link">Discover More Research Details ➜</a>
-        </div>
-
         <div class="two-col-grid">
             
             <div class="bento-item">
@@ -230,7 +207,7 @@
                     <ul class="news-list">
                         <li class="news-item">
                             <div class="news-date">2026</div>
-                            <div class="news-text">恭賀 <span class="name-highlight">曾柏翰</span> 完成博士口試，畢業將至加州柏克萊大學擔任博士後研究員。</a>！</div>
+                            <div class="news-text">恭賀 <span class="name-highlight">曾柏翰</span> 完成博士口試，畢業將至加州柏克萊大學擔任博士後研究員。</div>
                         </li>                        
                         <li class="news-item">                            
                             <div class="news-date">2026</div>
@@ -321,6 +298,30 @@
             </div>
 
         </div>
+
+        <div class="bento-item research-bento">
+            <span class="tag" style="background: var(--primary-color); color: #fff; margin-bottom: 15px;">Research Focus</span>
+            <h2 class="bento-title">Our Research Highlights</h2>
+            
+            <div class="research-grid">
+                
+                <div class="research-item">
+                    <h3>Monolithic 3D Electronics & Innovations</h3>
+                    <img src="images/home/messageImage_1775113162125_0.jpg" alt="Monolithic 3D Electronics">
+                    <p>Developing advanced processing techniques for monolithic 3D integration and BEOL applications. We bridge academic discovery with industrial manufacturability through industrial collaborations.</p>
+                </div>
+                
+                <div class="research-item">
+                    <h3>Semiconductor Physics in 2D Limits</h3>
+                    <img src="images/home/messageImage_1775112861322_0.jpg" alt="Semiconductor Physics in 2D Limits">
+                    <p>Exploring fundamental physics at ultimate thickness limits. We focus on carrier dynamics, exciton behavior, and novel transport mechanisms in scaled systems beyond conventional limitations.</p>
+                </div>
+
+            </div>
+            
+            <a href="research.html" class="pillar-link">Discover More Research Details ➜</a>
+        </div>
+
     </div>
 
     <footer>
