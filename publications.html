@@ -22,11 +22,11 @@
         }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; line-height: 1.6; }
         
-        /* ================= 電腦版專屬 80% 縮放 (不影響手機版 SEO) ================= */
+        /* ================= 電腦版專屬 80% 縮放 ================= */
         @media (min-width: 1024px) {
             body {
-                zoom: 0.8; /* 針對 Chrome, Safari, Edge */
-                -moz-transform: scale(0.8); /* 針對 Firefox */
+                zoom: 0.8; 
+                -moz-transform: scale(0.8); 
                 -moz-transform-origin: top center;
             }
         }
@@ -38,7 +38,6 @@
         nav a { color: #FFFFFF; text-decoration: none; font-weight: 500; font-size: 0.95rem; padding-bottom: 5px; transition: 0.3s;}
         nav a:hover { border-bottom: 2px solid #FFFFFF; }
         
-        /* 手機版導覽列適應 */
         @media (max-width: 900px) {
             header { flex-direction: column; gap: 15px; padding: 15px; }
             nav { flex-wrap: wrap; justify-content: center; gap: 10px 15px; }
@@ -49,6 +48,56 @@
         h2.section-title { color: var(--primary-color); text-align: center; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; margin-bottom: 40px; font-size: 2.2rem; }
         h3.category-title { color: var(--primary-color); border-left: 5px solid var(--primary-color); padding-left: 15px; margin-top: 50px; margin-bottom: 20px; font-size: 1.6rem; background: linear-gradient(to right, #eef2f0, transparent); padding-top: 5px; padding-bottom: 5px; }
         
+        /* ================= Cover Gallery 專用樣式 (折疊設計) ================= */
+        details.cover-gallery-wrapper {
+            margin: 0 0 40px 0;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        details.cover-gallery-wrapper summary {
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            list-style: none; /* 隱藏原生箭頭 */
+            outline: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #FAFCFB;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        /* 隱藏 Safari/Chrome 原生箭頭 */
+        details.cover-gallery-wrapper summary::-webkit-details-marker { display: none; }
+        details.cover-gallery-wrapper summary:hover { background-color: var(--badge-bg); }
+        
+        /* 自訂展開/收合的加減號圖示 */
+        details.cover-gallery-wrapper summary::after {
+            content: "＋"; 
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        details[open].cover-gallery-wrapper summary::after { content: "－"; }
+        
+        /* 展開後的內容區塊 */
+        .cover-gallery-container {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #EAEAEA;
+        }
+        .cover-gallery-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        .cover-gallery-img:hover { transform: scale(1.01); }
+
         /* ================= 極簡期刊風清單設計 ================= */
         .pub-list { 
             display: flex; 
@@ -140,8 +189,6 @@
             white-space: nowrap;
         }
         .btn-read:hover { background-color: var(--primary-color); color: #fff; transform: translateX(3px); }
-        .btn-disabled { opacity: 0.4; border-color: #999; color: #999; cursor: not-allowed; }
-        .btn-disabled:hover { background-color: transparent; color: #999; transform: none; }
 
         /* ================= 視覺化標籤 ================= */
         .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-left: 8px; vertical-align: middle; }
@@ -150,33 +197,24 @@
 
         .patent-number { font-family: 'Courier New', Courier, monospace; background: #f4f4f4; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; font-weight: bold; color: #444;}
 
-        /* ================= Cover Gallery 專用樣式 ================= */
-        .cover-gallery-container { text-align: center; margin: 20px 0; padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .cover-gallery-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
-        .cover-gallery-img:hover { transform: scale(1.02); }
-
         footer { background-color: var(--primary-color); padding: 40px 20px 20px; text-align: center; color: #D1E0D7; font-size: 0.95rem; margin-top: 50px;}
 
-        /* ================= RWD 手機版適應 (精緻化微整型) ================= */
+        /* ================= RWD 手機版適應 ================= */
         @media (max-width: 850px) {
             .container { margin-top: 25px; padding: 0 15px; }
             h2.section-title { font-size: 1.6rem; margin-bottom: 25px; }
             h3.category-title { font-size: 1.3rem; margin-top: 30px; margin-bottom: 15px; }
             
-            /* 清單容器與項目瘦身 */
             .pub-list { padding: 5px 15px; }
             .pub-item { padding: 20px 15px; margin: 0 -15px; }
             
-            /* 字體與排版微調 */
             .pub-title { font-size: 1.05rem; }
             .pub-authors { font-size: 0.9rem; }
             .pub-venue { font-size: 0.9rem; }
             
-            /* 讓按鈕自己佔一行，比較好點 */
             .pub-actions { margin-top: 15px; display: flex; justify-content: flex-start; }
             .badge { display: block; margin-left: 0; margin-top: 5px; width: fit-content; }
         }
-
     </style>
 </head>
 <body>
@@ -194,6 +232,14 @@
 
     <div class="container">
         <h2 class="section-title">Publications & Patents</h2>
+
+        <h3 class="category-title" style="margin-top: 0;">Cover Gallery</h3>
+        <details class="cover-gallery-wrapper">
+            <summary>Click to view featured journal covers</summary>
+            <div class="cover-gallery-container">
+                <img src="你的橫式圖片檔名.jpg" alt="DHLab Featured Covers" class="cover-gallery-img">
+            </div>
+        </details>
 
         <h3 class="category-title">Publications</h3>
         
@@ -1169,10 +1215,6 @@
 
         </div> 
         
-        <h3 class="category-title">Cover Gallery</h3>
-        <div class="cover-gallery-container">
-            </div>
-
         <h3 class="category-title">Patents</h3>
         <div class="pub-list">
             <div class="pub-item">
